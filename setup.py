@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 def readme():
     with open('README.md') as f:
@@ -14,7 +14,7 @@ setup(name='nb2hugo',
       author='Vincent Lunot',
       author_email='vlunot@gmail.com',
       license='MIT',
-      packages=['nb2hugo'],
+      packages=find_packages(),
       install_requires=[
           'nbconvert',
           'nbformat',
