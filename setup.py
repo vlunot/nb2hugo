@@ -6,9 +6,10 @@ def readme():
 
 setup(name='nb2hugo',
       python_requires='>=3.6',
-      version='0.1',
+      version='0.1.1',
       description='A Jupyter notebook to Hugo markdown converter',
       long_description=readme(),
+      long_description_content_type='text/markdown',
       keywords='jupyter notebook hugo converter',
       url='http://github.com/vlunot/nb2hugo',
       author='Vincent Lunot',
