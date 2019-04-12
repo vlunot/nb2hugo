@@ -17,6 +17,7 @@ class FixLatexPreprocessor(Preprocessor):
         if cell.cell_type == "markdown":
             cell.source = self._replace_latex_enclosing_dollars(cell.source)
             cell.source = self._fix_latex_antislash(cell.source)
+            cell.source = self._fix_latex_escaped_underscores(cell.source)
         return cell, resources
     
     def _replace_latex_enclosing_dollars(self, text):
@@ -34,11 +35,11 @@ class FixLatexPreprocessor(Preprocessor):
         return no_single_or_double_dollar
     
     def _fix_latex_escaped_underscores(self, text):
-        """Replace '\_' by '\\_' inside LaTeX expressions delimited by
+        """Replace '_' by '\_' inside LaTeX expressions delimited by
         \\[ ... \\] or \\( ... \\)."""
         inline_math = r'\\\((.+?)\\\)'
         display_math = r'\\\[(.+?)\\\]'
-        double_escape = lambda m: re.sub(r'(?<!\\)\\_', r'\\\\_', m.group(0))
+        double_escape = lambda m: re.sub(r'(?<!\\)_', r'\\_', m.group(0))
         new_text = re.sub(inline_math, double_escape, text, flags=re.S)
         new_text = re.sub(display_math, double_escape, new_text, flags=re.S)
         return new_text
