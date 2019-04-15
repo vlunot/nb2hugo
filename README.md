@@ -43,7 +43,7 @@ nb2hugo notebook_file --site-dir hugo_website_directory --section content_sectio
 
 ## Author
 
-**Vincent Lunot** - *Initial work*
+**Vincent Lunot** - *Initial work*.
 
 
 ## License
@@ -53,4 +53,4 @@ This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.t
 
 ## Acknowledgements
 
-*nb2hugo* is based on [nbconvert](https://github.com/jupyter/nbconvert)
+*nb2hugo* is based on [nbconvert](https://github.com/jupyter/nbconvert).
