@@ -48,7 +48,7 @@ nb2hugo notebook_file --site-dir hugo_website_directory --section content_sectio
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.txt](LICENSE.txt) file for details.
+This project is licensed under the MIT License - see the [LICENSE.txt](https://github.com/vlunot/nb2hugo/blob/master/LICENSE.txt) file for details.
 
 
 ## Acknowledgements
