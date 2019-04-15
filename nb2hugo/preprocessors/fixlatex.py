@@ -4,9 +4,9 @@ import re
 
 class FixLatexPreprocessor(Preprocessor):
     """Preprocess the notebook markdown cells:
-    - convert $$ ... $$ to \\[ ... \\],
-    - convert $ ... $ to \\( ... \\),
-    - double escape underscores inside latex content.
+    - convert $$ ... $$ to \[ ... \],
+    - convert $ ... $ to \( ... \),
+    - escape underscores inside latex content.
     
     See https://gohugo.io/content-management/formats/#issues-with-markdown
     for some issues with latex.
@@ -22,7 +22,7 @@ class FixLatexPreprocessor(Preprocessor):
     
     def _replace_latex_enclosing_dollars(self, text):
         """Convert LaTeX $ ... $ or $$ ... $$ expressions to respectively 
-        \\( ... \\) and \\[ ... \\].
+        \( ... \) and \[ ... \].
         """
         single_dollar_latex = r'(?<![\\\$])\$(?!\$)(.+?)(?<![\\\$])\$(?!\$)'
         to_parentheses = lambda m: r'\\(' + m.group(1) + r'\\)'
@@ -36,7 +36,7 @@ class FixLatexPreprocessor(Preprocessor):
     
     def _fix_latex_escaped_underscores(self, text):
         """Replace '_' by '\_' inside LaTeX expressions delimited by
-        \\[ ... \\] or \\( ... \\)."""
+        \[ ... \] or \( ... \)."""
         inline_math = r'\\\((.+?)\\\)'
         display_math = r'\\\[(.+?)\\\]'
         double_escape = lambda m: re.sub(r'(?<!\\)_', r'\\_', m.group(0))
@@ -45,13 +45,13 @@ class FixLatexPreprocessor(Preprocessor):
         return new_text
     
     def _fix_latex_antislash(self, text):
-        """Replace '\\' by '\\\\\\' and '\' by '\\' inside LaTeX expressions 
-        delimited by \\[ ... \\] or \\( ... \\)."""
+        """Replace '\\' by '\\\\' and '\' by '\\' inside LaTeX expressions 
+        delimited by \[ ... \] or \( ... \)."""
         inline_math = r'\\\\\((.+?)\\\\\)'
         display_math = r'\\\\\[(.+?)\\\\\]'
-        multiple_escape = lambda m: r'\\(' + re.sub(r'\\\\', r'\\\\\\\\\\', m.group(1)) + r'\\)'
+        multiple_escape = lambda m: r'\\(' + re.sub(r'\\\\ *', r'\\\\\\\\ ', m.group(1)) + r'\\)'
         new_text = re.sub(inline_math, multiple_escape, text, flags=re.S)
-        multiple_escape = lambda m: r'\\[' + re.sub(r'\\\\', r'\\\\\\\\\\', m.group(1)) + r'\\]'
+        multiple_escape = lambda m: r'\\[' + re.sub(r'\\\\ *', r'\\\\\\\\ ', m.group(1)) + r'\\]'
         new_text = re.sub(display_math, multiple_escape, new_text, flags=re.S)
         double_escape = lambda m: r'\\(' + re.sub(r'(?<!\\)\\(?!\\)', r'\\\\', m.group(1)) + r'\\)'
         new_text = re.sub(inline_math, double_escape, new_text, flags=re.S)
