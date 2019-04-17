@@ -18,7 +18,7 @@ pip install nb2hugo
 
 ## Usage
 
-In your python notebook, start by using one or more markdown cells that will contain the front matter information. Next, add an html comment as a front matter divider: everything in the notebook before the End Of Front Matter divider `<!--eofm-->` will be the front matter. This approach is similar to the one used for [content summaries](https://gohugo.io/content-management/summaries/).  
+In your Jupyter notebook, start by using one or more markdown cells that will contain the front matter information. Next, add an html comment as a front matter divider: everything in the notebook before the End Of Front Matter divider `<!--eofm-->` will be the front matter. This approach is similar to the one used for [content summaries](https://gohugo.io/content-management/summaries/).  
 A markdown title before the `<!--eofm-->` divider will automatically become the front matter title. You can also provide other front matter fields by writting pairs of "key: value" on different lines.  
 Below is an example of a notebook markdown cell that will become a front matter:
 
@@ -39,6 +39,12 @@ Once you have finished writing your notebook, you can convert it using the follo
 ```bash
 nb2hugo notebook_file --site-dir hugo_website_directory --section content_section
 ```
+
+
+## A workflow for easily publishing notebooks
+
+A [demo site](https://nb2hugo.netlify.com/) shows how to combine *nb2hugo*, Hugo and Netlify to easily blog with Jupyter notebooks. 
+The associated Git repository is available at <https://github.com/vlunot/nb2hugo-demo>.
 
 
 ## Author
