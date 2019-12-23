@@ -9,31 +9,32 @@ def preprocessor():
     return FixLatexPreprocessor()
 
 source = (
-    'Some text with an inline equality $escaped\_0 = lower_0$.\n' 
+    'Some text with an inline equality $escaped\\_0 = lower_0$.\n' 
     'And a display equality:\n'
-    '$$escaped\_1 = subscript_1.$$\n'
+    '$$escaped\\_1 = subscript_1.$$\n'
     'And a second one on multiple lines:\n'
     '$$\n'
-    'escaped\_2\n'
+    'escaped\\_2\n'
     '$$\n'
 )
 dollars_processed = (
-    'Some text with an inline equality \\\\(escaped\_0 = lower_0\\\\).\n' 
+    'Some text with an inline equality \\\\(escaped\\_0 = lower_0\\\\).\n'
     'And a display equality:\n'
-    '\\\\[escaped\_1 = subscript_1.\\\\]\n'
+    '\\\\[escaped\\_1 = subscript_1.\\\\]\n'
     'And a second one on multiple lines:\n'
     '\\\\[\n'
-    'escaped\_2\n'
+    'escaped\\_2\n'
     '\\\\]\n'
 )
 fully_processed = (
-    'Some text with an inline equality \\\\(escaped\\\\_0 = lower_0\\\\).\n' 
-    'And a display equality:\n'
-    '\\\\[escaped\\\\_1 = subscript_1.\\\\]\n'
-    'And a second one on multiple lines:\n'
-    '\\\\[\n'
-    'escaped\\\\_2\n'
-    '\\\\]\n'
+    r'''Some text with an inline equality \\(escaped\\_0 = lower\_0\\).
+And a display equality:
+\\[escaped\\_1 = subscript\_1.\\]
+And a second one on multiple lines:
+\\[
+escaped\\_2
+\\]
+'''
 )
 
 
@@ -43,7 +44,7 @@ def test_replace_latex_enclosing_dollars(preprocessor):
   
 
 def test_fix_latex_escaped_underscores(preprocessor):
-    result = preprocessor._fix_latex_escaped_underscores(dollars_processed)
+    result = preprocessor._fix_latex_escaped_underscores(preprocessor._fix_latex_antislash(dollars_processed))
     assert result == fully_processed
 
 
@@ -56,6 +57,7 @@ raw_cell, code_cell, markdown_cell, expected_markdown_cell = [
                               ('markdown', source),
                               ('markdown', fully_processed)]
 ]
+
 
 @pytest.mark.parametrize("input_cell, expected_cell", [
     (raw_cell, raw_cell),
