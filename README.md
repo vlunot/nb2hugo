@@ -1,5 +1,7 @@
 # nb2hugo
 
+### :warning: This project is no longer maintained.
+
 *nb2hugo* is a simple way to convert a Jupyter notebook to a Hugo markdown page.
 
 
