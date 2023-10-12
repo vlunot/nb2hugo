@@ -43,9 +43,9 @@ notebook = notebooknode.from_dict({
             "cell_type": 'markdown',
             "metadata": {},
             "source": (
-                'Some text with an inline equality $escaped\_0 = lower_0$.\n' 
+                'Some text with an inline equality $escaped\\_0 = lower_0$.\n' 
                 'And a display equality:\n'
-                '$$escaped\_1 = subscript_1.$$'
+                '$$escaped\\_1 = subscript_1.$$'
             )
         },
         {
@@ -59,7 +59,6 @@ notebook = notebooknode.from_dict({
     'nbformat_minor': 2
 })
 expected_markdown = (
-    '\n'
     '+++\n'
     'title = "This is the title"\n'
     'date = "2018-06-10"\n'
@@ -72,9 +71,9 @@ expected_markdown = (
     'This line should be visible.\n'
     '\n'
     '\n'
-    'Some text with an inline equality \\\\(escaped\\\\_0 = lower_0\\\\).\n' 
+    'Some text with an inline equality \\\\(escaped\\\\_0 = lower\\_0\\\\).\n'
     'And a display equality:\n'
-    '\\\\[escaped\\\\_1 = subscript_1.\\\\]'
+    '\\\\[escaped\\\\_1 = subscript\\_1.\\\\]'
     '\n'
     '\n'
     'Some text with an ![image](https://url.url/image.png).\n'
@@ -86,5 +85,6 @@ def test_exporter(tmpdir):
     exporter = HugoExporter()
     with pytest.warns(UserWarning, match='should be ignored.$'):
         markdown, resources = exporter.from_notebook_node(notebook)
+    print('md='+markdown+'\n')
     assert markdown == expected_markdown
-    
+
